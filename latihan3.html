@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>latihan3</title>
+</head>
+<body>
+    <button id="tombol1" onmouseenter="fungsi1(event)" onmouseleave="hilang()">Paragraf 1</button>
+    <button id="tombol2" onmouseenter="fungsi2(event)" onmouseleave="hilang()">Paragraf 2</button>
+
+    <p id="hasil"></p>
+
+    <script>
+        
+        function fungsi1(e) {
+            document.getElementById("hasil").textContent = "Andi";
+        }
+
+        function fungsi2(e) {
+            document.getElementById("hasil").textContent = "Budi";
+        }
+
+        function hilang() {
+            document.getElementById("hasil").textContent = "";
+        }
+
+
+    </script>
+</body>
+</html>
