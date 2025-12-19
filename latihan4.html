@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan4</title>
+</head>
+<body>
+    <form onsubmit="hitung(event)">
+        <button>Angka 1 :</button><br>
+        <input type="number" id="angka1" required><br><br>
+
+        <button>Angka 2 :</button><br>
+        <input type="number" id="angka2" required><br><br>
+
+        <button type="+">+</button>
+    </form>
+
+    <div id="hasil"></div>
+
+    <script>
+        function hitung(e) {
+            e.preventDefault();
+
+            let a = document.getElementById("angka1").value;
+            let b = document.getElementById("angka2").value;
+
+            let jumlah = parseInt(a) + parseInt(b);
+
+            document.getElementById("hasil").innerHTML =
+                "<p> <b>" + jumlah + "</b></p>";
+        }
+    </script>
+
+</body>
+</html>
