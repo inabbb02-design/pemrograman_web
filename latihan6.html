@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan6</title>
+</head>
+<body>
+    <form onsubmit="hitung(event)">
+        Angka 1 :<br>
+        <input type="number" id="angka1" required><br><br>
+
+        Angka 2 :<br>
+        <input type="number" id="angka2" required><br><br>
+
+        <button type="submit" onclick="setOperator('+')">+</button>
+        <button type="submit" onclick="setOperator('-')">-</button>
+        <button type="submit" onclick="setOperator('*')">×</button>
+        <button type="submit" onclick="setOperator('/')">/</button>
+    </form>
+
+    <div id="hasil"></div>
+
+    <script>
+        let operator = "+";
+
+        function setOperator(op) {
+            operator = op;
+        }
+
+        function hitung(e) {
+            e.preventDefault();
+
+            let a = parseFloat(document.getElementById("angka1").value);
+            let b = parseFloat(document.getElementById("angka2").value);
+            let hasil;
+
+            if (operator === "+") {
+                hasil = a + b;
+            } else if (operator === "-") {
+                hasil = a - b;
+            } else if (operator === "*") {
+                hasil = a * b;
+            } else if (operator === "/") {
+                if (b === 0) {
+                    hasil = "Tidak bisa dibagi 0";
+                } else {
+                    hasil = a / b;
+                }
+            }
+
+            document.getElementById("hasil").innerHTML =
+                "<p><b>Hasil: " + hasil + "</b></p>";
+        }
+    </script>
+</body>
+</html>
