@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CLI Web</title>
+<style>
+body {
+    background: black;
+    color: white;
+    font-family: monospace;
+}
+input {
+    background: black;
+    color: white;
+    border: none;
+    outline: none;
+}
+</style>
+</head>
+<body>
+
+
+<pre>
+--------- Biodata Mahasiswa ---------
+{% if biodata %}
+Nama : {{ biodata.nama }}
+NIM  : {{ biodata.nim }}
+{% else %}
+Data mahasiswa belum diinput
+{% endif %}
+</pre>
+
+<a href="/">Kembali</a>
