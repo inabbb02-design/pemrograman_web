@@ -8,57 +8,90 @@ def cls():
 def menu_biodata():
     cls()
     print("--------- Biodata Mahasiswa ---------")
-
     pilihan = input("Lihat Biodata atau Input Biodata? (1/2): ")
     cls()
 
     if pilihan == "1":
-        lihat_biodata()
+        data = get_biodata()
+        if not data:
+            print("data mahasiswa belum diinput")
+        else:
+            print("Nama :", data["nama"])
+            print("NIM  :", data["nim"])
+
     elif pilihan == "2":
-        input_biodata()
+        nama = input("Nama : ")
+        nim = input("NIM  : ")
+        set_biodata(nama, nim)
+        print("berhasil ditambahkan")
+
     else:
         print("Pilihan tidak valid")
 
     input("")
 
 
-def kumpulan_menu():
-    while True:
-        cls()
-        print("--------- Menu Utama ---------")
-        print("1. Biodata")
-        print("2. SKS")
-        print("3. Input Nilai")
-        print("4. Lihat Nilai")
-        print("5. Lihat IP")
-        print("6. Keluar")
+def input_sks_cli():
+    print("--------- Input SKS ---------")
 
-        pilihan = input("Pilihan: ")
-        cls()
+    data = list(map(int, input("SKS: ").split()))
+    set_sks(data)
+    print("berhasil ditambahkan")
 
-        if pilihan == "1":
-            menu_biodata()
 
-        elif pilihan == "2":
-            input_sks()
-            input("")
+def input_nilai():
+    if not get_sks():
+        print("SKS belum diinput")
+        return
 
-        elif pilihan == "3":
-            input_nilai()
-            input("")
+    print("--------- Input Nilai Mahasiswa ---------")
+    pilihan = input("Input angka atau huruf? (1/2): ")
 
-        elif pilihan == "4":
-            lihat_nilai()
-            input("")
+    if pilihan == "1":
+        nilai = list(map(float, input("Nilai: ").split()))
+        if len(nilai) != len(get_sks()):
+            print("Jumlah nilai tidak sesuai jumlah SKS")
+            return
+        set_nilai_dari_angka(nilai)
 
-        elif pilihan == "5":
-            hitung_ip()
-            input("")
+    elif pilihan == "2":
+        nilai = input("Nilai: ").split()
+        if len(nilai) != len(get_sks()):
+            print("Jumlah nilai tidak sesuai jumlah SKS")
+            return
+        set_nilai_dari_huruf(nilai)
 
-        elif pilihan == "6":
-            print("Program selesai")
-            break
+    else:
+        print("Pilihan tidak valid")
+        return
 
-        else:
-            print("Pilihan tidak valid")
-            input("")
+    print("berhasil ditambahkan")
+
+
+def lihat_nilai():
+    data = get_biodata()
+    if not data:
+        print("Biodata belum diinput")
+        return
+    if not get_nilai():
+        print("Nilai belum diinput")
+        return
+
+    print("--------- Nilai Mahasiswa ---------")
+    print("Nama:", data["nama"])
+    print("NIM :", data["nim"])
+    print("Nilai:", get_nilai_huruf())
+
+
+def hitung_ip_cli():
+    data = get_biodata()
+    if not data or not get_sks() or not get_nilai():
+        print("Data belum lengkap")
+        return
+
+    ip = hitung_ip()
+    print("--------- Index Prestasi (IP) Mahasiswa ---------")
+    print(f"Mahasiswa: {data['nim']} {data['nama']}")
+    print(round(ip, 2))
+
+
