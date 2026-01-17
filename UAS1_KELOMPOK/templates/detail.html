@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detail: {{ person.name }}</title>
+    <style>
+        body { 
+            font-family: serif; 
+            background-color: #e0f0f5; 
+            padding: 30px; 
+            line-height: 1.4; 
+        }
+        h1 { 
+            text-transform: uppercase; 
+            font-size: 28px; 
+            margin-bottom: 25px; 
+        }
+        .cousin-menu { margin-bottom: 30px; }
+        .cousin-menu a {
+            margin-right: 15px; font-size: 18px;
+            color: #004466; text-decoration: underline;
+        }
+        .section-title { 
+            font-weight: bold; font-size: 24px; 
+            margin-top: 25px; margin-bottom: 15px; display: block;
+        }
+        .label { font-weight: bold; font-size: 18px; }
+        a { 
+            color: #004466; text-decoration: underline; 
+            text-transform: uppercase; cursor: pointer;
+        }
+        ul { 
+            list-style-type: disc; margin-left: 20px; 
+            margin-top: 5px; margin-bottom: 20px;
+        }
+        li { margin-bottom: 5px; }
+        .family-block {
+            margin-bottom: 30px;
+            border-bottom: 1px dashed #abc; 
+            padding-bottom: 10px;
+        }
+        .back-btn {
+            margin-top: 50px; display: block;
+            text-decoration: none; color: #555;
+            font-size: 14px; text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>{{ person.name }}</h1>
+
+    <div class="cousin-menu">
+        <a href="{{ url_for('cousin.person_cousins', pointer=person.id, level=1) }}">SEPUPU SEKALI</a> 
+        <a href="{{ url_for('cousin.person_cousins', pointer=person.id, level=2) }}">SEPUPU DUA KALI</a> 
+        <a href="{{ url_for('cousin.person_cousins', pointer=person.id, level=3) }}">SEPUPU TIGA KALI</a>
+    </div>
+
+    <div class="section">
+        <span class="section-title">Orang Tua</span>
+        {% if person.parents %}
+            {% for p in person.parents %}
+                <p><span class="label">{{ p.relation }}:</span> <a href="{{ url_for('main.person_detail', pointer=p.id) }}">{{ p.name }}</a></p>
+            {% endfor %}
+        {% else %}
+            <p>Data orang tua tidak tersedia.</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <span class="section-title">Saudara</span>
+        {% if person.siblings %}
+            <ul>
+            {% for s in person.siblings %}
+                <li><a href="{{ url_for('main.person_detail', pointer=s.id) }}">{{ s.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Belum ada data saudara.</p>
+        {% endif %}
+    </div>
+
+
+    <div class="section">
+        <span class="section-title">Keluarga</span>
+        {% if person.families %}
+            {% for fam in person.families %}
+                <div class="family-block">
+                    <p>
+                        <span class="label">Pasangan:</span> 
+                        {% if fam.spouse %}
+                            <a href="{{ url_for('main.person_detail', pointer=fam.spouse.id) }}">{{ fam.spouse.name }}</a>
+                        {% else %}
+                            <span>Data pasangan tidak tersedia</span>
+                        {% endif %}
+                    </p>
+                    <ul>
+                        {% for child in fam.children %}
+                            <li><a href="{{ url_for('main.person_detail', pointer=child.id) }}">{{ child.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Belum ada data keluarga.</p>
+        {% endif %}
+    </div>
+
+    <a href="/" class="back-btn">← Kembali ke Telusuri</a>
+
+</body>
+</html>

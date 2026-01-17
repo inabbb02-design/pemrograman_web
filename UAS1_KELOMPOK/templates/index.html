@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Telusuri Silsilah</title>
+    <style>
+        body { font-family: sans-serif; background-color: #e0f0f5; padding: 20px; }
+        .search-box { margin-bottom: 20px; }
+        .result-item { margin: 5px 0; }
+        a { color: #004466; text-decoration: underline; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Telusuri</h2>
+    <form action="/" method="GET" class="search-box">
+        <input type="text" name="query" value="{{ query }}" placeholder="nama">
+        <button type="submit">Cari</button>
+    </form>
+
+    {% if results %}
+    <h3>Daftar Pencarian</h3>
+    <ul>
+        {% for res in results %}
+        <li class="result-item">
+            <a href="{{ url_for('main.person_detail', pointer=res.id) }}">{{ res.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% elif query %}
+    <p>Nama tidak ditemukan.</p>
+    {% endif %}
+</body>
+</html>
